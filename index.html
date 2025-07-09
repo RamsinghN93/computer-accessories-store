@@ -3,93 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Computer Accessories Store</title>
+  <title>Hardware Accessories Shop</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>💻 Computer Accessories & Hardware Store</h1>
-    <p>Your one-stop shop for desktops, laptops, and accessories</p>
+    <h1>💻 Hardware Accessories Shop</h1>
+    <nav>
+      <a href="#cart">Cart</a>
+      <a href="#payment">Checkout</a>
+    </nav>
   </header>
 
   <main>
-    <section class="category">
-      <h2>🔥 Laptops</h2>
-      <div class="grid">
-        <div class="item">
-          <h3>Dell Inspiron 15</h3>
-          <p>Intel i5, 8GB RAM, 512GB SSD</p>
-          <p class="price">₹56,990</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-        <div class="item">
-          <h3>HP Pavilion x360</h3>
-          <p>Intel i7, 16GB RAM, 1TB SSD</p>
-          <p class="price">₹74,990</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
+    <section class="products">
+      <div class="product">
+        <h2>1TB Samsung SSD</h2>
+        <p>Fast storage for desktops/laptops</p>
+        <span>₹7,499</span>
+        <button onclick="addToCart('1TB Samsung SSD', 7499)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>16GB DDR4 RAM</h2>
+        <p>High-speed Corsair memory</p>
+        <span>₹4,899</span>
+        <button onclick="addToCart('16GB DDR4 RAM', 4899)">Add to Cart</button>
+      </div>
+      <div class="product">
+        <h2>NVIDIA GTX 1660</h2>
+        <p>6GB GDDR5 Graphics Card</p>
+        <span>₹22,990</span>
+        <button onclick="addToCart('NVIDIA GTX 1660', 22990)">Add to Cart</button>
       </div>
     </section>
 
-    <section class="category">
-      <h2>🖥️ Desktops</h2>
-      <div class="grid">
-        <div class="item">
-          <h3>Lenovo ThinkCentre M Series</h3>
-          <p>Core i5, 8GB, 1TB HDD</p>
-          <p class="price">₹29,999</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-        <div class="item">
-          <h3>Custom Gaming PC</h3>
-          <p>Ryzen 5, 16GB, RTX 3060</p>
-          <p class="price">₹84,999</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-      </div>
+    <section id="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: ₹<span id="total">0</span></p>
     </section>
 
-    <section class="category">
-      <h2>⚙️ Hardware Accessories</h2>
-      <div class="grid">
-        <div class="item">
-          <h3>1TB Samsung SSD</h3>
-          <p>High-speed internal SSD</p>
-          <p class="price">₹7,499</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-        <div class="item">
-          <h3>Corsair 16GB DDR4 RAM</h3>
-          <p>High-performance gaming RAM</p>
-          <p class="price">₹4,899</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-        <div class="item">
-          <h3>GTX 1660 Graphics Card</h3>
-          <p>6GB GDDR5, 1408 CUDA Cores</p>
-          <p class="price">₹22,990</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-        <div class="item">
-          <h3>ASUS B550 Motherboard</h3>
-          <p>Socket AM4, PCIe 4.0</p>
-          <p class="price">₹13,490</p>
-          <button>Add to Cart</button>
-          <button class="buy-now">Buy Now</button>
-        </div>
-      </div>
+    <section id="payment">
+      <h2>Checkout</h2>
+      <form id="checkout-form">
+        <label>Name: <input type="text" name="name" required /></label><br />
+        <label>Address: <textarea name="address" required></textarea></label><br />
+        <label>Card Number: <input type="text" name="card" required /></label><br />
+        <button type="submit">Pay Now</button>
+      </form>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 Computer Accessories Store. All rights reserved.</p>
+    <p>&copy; 2025 Hardware Accessories Shop</p>
   </footer>
+
+  <script>
+    let cart = [];
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById("cart-items");
+      const total = document.getElementById("total");
+      cartItems.innerHTML = "";
+      let sum = 0;
+      cart.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} - ₹${item.price}`;
+        cartItems.appendChild(li);
+        sum += item.price;
+      });
+      total.textContent = sum;
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Payment successful! Order placed.");
+      cart = [];
+      renderCart();
+      e.target.reset();
+    });
+  </script>
 </body>
 </html>
